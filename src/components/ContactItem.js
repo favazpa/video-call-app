@@ -14,7 +14,7 @@ const ContactItem = ({email}) => {
   useEffect(() => {
     const currentUser = auth().currentUser;
     setIsSelfUser(currentUser.email === email);
-    setInvitees([email]);
+    setInvitees(email ? email.split(',') : []);
     fetchRandomUser();
   }, []);
 
@@ -47,7 +47,10 @@ const ContactItem = ({email}) => {
           {!isSelfUser ? (
             <View style={{alignSelf: 'flex-end'}}>
               <ZegoSendCallInvitationButton
-                invitees={invitees}
+                invitees={invitees.map(inviteeID => {
+                  console.log('invite idddd', inviteeID);
+                  return {userID: inviteeID, userName: inviteeID};
+                })}
                 isVideoCall={true}
               />
             </View>
