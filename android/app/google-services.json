@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "706719280094",
+    "project_id": "chat-app-86c4f",
+    "storage_bucket": "chat-app-86c4f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706719280094:android:358687830804b773948b4f",
+        "android_client_info": {
+          "package_name": "com.videocallingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "706719280094-2pe2heuqfcdhbiemelfk8lt62t2vuh01.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmYne9sm2Vngz6tkRIKn7KMAqg2yp5qTg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "706719280094-2pe2heuqfcdhbiemelfk8lt62t2vuh01.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
