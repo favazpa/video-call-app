@@ -52,6 +52,7 @@ const ContactItem = ({email}) => {
                   return {userID: inviteeID, userName: inviteeID};
                 })}
                 isVideoCall={true}
+                resourceID={'zego_call'}
               />
             </View>
           ) : (

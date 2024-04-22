@@ -51,6 +51,10 @@ const MainNavigator = () => {
           incomingCallFileName: 'zego_incoming.mp3',
           outgoingCallFileName: 'zego_outgoing.mp3',
         },
+        androidNotificationConfig: {
+          channelID: 'ZegoUIKit',
+          channelName: 'ZegoUIKit',
+        },
         avatarBuilder: ({userInfo}) => {
           return (
             <View style={{width: '100%', height: '100%'}}>
