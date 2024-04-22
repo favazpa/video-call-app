@@ -20,7 +20,6 @@ const LoginScreen = () => {
     if (email && password) {
       const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       if (!emailRegex.test(email)) {
-        // Alert.alert('Invalid Email', 'Please enter a valid email address.');
         setErrorMsg('That email address is invalid1!');
         return;
       } else {
@@ -30,11 +29,17 @@ const LoginScreen = () => {
         .createUserWithEmailAndPassword(email, password)
         .then(async () => {
           console.log('User account created & signed in!');
+
+          const atIndex = email.indexOf('@');
+
+          const userName = email.substring(0, atIndex);
+
+          console.log('userName', userName); // This will log 'example'
           await firestore()
             .collection('Users')
             .add({
               email: email,
-              phone: phone,
+              userName,
             })
             .then(() => {
               console.log('User added!');
@@ -43,21 +48,24 @@ const LoginScreen = () => {
               console.log('error while adding user', err);
             });
         })
-        .catch(error => {
+        .catch(async error => {
           console.log('error', error);
           if (error.code === 'auth/email-already-in-use') {
             console.log('That email address is already in use!');
-            auth()
+            await auth()
               .signInWithEmailAndPassword(email, password)
               .then(() => {
                 console.log('signed in sussessfully');
               })
               .catch(error => {
                 console.log(error);
+                setErrorMsg(
+                  'Incorrect password, please contact admin for resetting',
+                );
               });
-            setErrorMsg(
-              'Incorrect password, please contact admin for resetting',
-            );
+            // setErrorMsg(
+            //   'Incorrect password, please contact admin for resetting',
+            // );
           }
 
           if (error.code === 'auth/invalid-email') {
@@ -96,14 +104,6 @@ const LoginScreen = () => {
           placeholderTextColor={'gray'}
           value={password}
           onChangeText={setPassword}
-        />
-
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your number"
-          placeholderTextColor={'gray'}
-          value={phone}
-          onChangeText={setPhone}
         />
 
         {errorMsg && (

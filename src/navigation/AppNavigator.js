@@ -7,13 +7,9 @@ import HomeScreen from '../screens/HomeScreen';
 import VideoCallingScreen from '../screens/VideoCallingScreen';
 
 import * as ZIM from 'zego-zim-react-native';
-import ZegoUIKitPrebuiltCallService, {
-  ZegoCallInvitationDialog,
+import {
   ZegoUIKitPrebuiltCallWaitingScreen,
   ZegoUIKitPrebuiltCallInCallScreen,
-  ZegoSendCallInvitationButton,
-  ZegoMenuBarButtonName,
-  ZegoUIKitPrebuiltCallFloatingMinimizedView,
 } from '@zegocloud/zego-uikit-prebuilt-call-rn';
 
 const Stack = createNativeStackNavigator();
@@ -23,15 +19,13 @@ const AppNavigator = () => {
     <Stack.Navigator initialRouteName={SCREENS.HOME}>
       <Stack.Screen
         options={{
-          title: 'Choose contact to call',
-          //   headerShown: false,
+          title: 'Contacts',
         }}
         name={SCREENS.HOME}
         component={HomeScreen}
       />
       <Stack.Screen
         options={{
-          //   title: 'Choose contact to call',
           headerShown: false,
         }}
         name={SCREENS.VIDEO_CALL}

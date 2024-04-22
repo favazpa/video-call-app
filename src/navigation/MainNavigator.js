@@ -1,4 +1,3 @@
-// navigation/MainNavigator.js
 import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import AuthNavigator from './AuthNavigator';
@@ -11,24 +10,18 @@ import auth from '@react-native-firebase/auth';
 import * as ZIM from 'zego-zim-react-native';
 import ZegoUIKitPrebuiltCallService, {
   ZegoCallInvitationDialog,
-  ZegoUIKitPrebuiltCallWaitingScreen,
-  ZegoUIKitPrebuiltCallInCallScreen,
-  ZegoSendCallInvitationButton,
   ZegoMenuBarButtonName,
   ZegoUIKitPrebuiltCallFloatingMinimizedView,
 } from '@zegocloud/zego-uikit-prebuilt-call-rn';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import KeyCenter from '../../KeyCenter';
 import {SCREENS} from './Routes';
 
 const MainNavigator = () => {
   const [user, setUser] = useState();
 
-  const Stack = createNativeStackNavigator();
-
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
+    return subscriber;
   }, []);
 
   function onAuthStateChanged(user) {
