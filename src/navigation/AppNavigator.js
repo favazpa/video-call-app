@@ -1,29 +1,46 @@
-// navigation/AuthNavigator.js
-
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SCREENS} from './Routes';
 import HomeScreen from '../screens/HomeScreen';
 import VideoCallingScreen from '../screens/VideoCallingScreen';
-
-import * as ZIM from 'zego-zim-react-native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   ZegoUIKitPrebuiltCallWaitingScreen,
   ZegoUIKitPrebuiltCallInCallScreen,
 } from '@zegocloud/zego-uikit-prebuilt-call-rn';
+import CallHistory from '../screens/CallHistory';
+import {Text} from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
-const AppNavigator = () => {
+const Tab = createBottomTabNavigator();
+
+function MyTabs() {
   return (
-    <Stack.Navigator initialRouteName={SCREENS.HOME}>
-      <Stack.Screen
-        options={{
-          title: 'Contacts',
-        }}
-        name={SCREENS.HOME}
+    <Tab.Navigator>
+      <Tab.Screen
+        options={{tabBarIcon: () => <Text style={{color: 'black'}}>📞</Text>}}
+        name={SCREENS.HOME_TAB}
         component={HomeScreen}
       />
+      <Tab.Screen
+        options={{tabBarIcon: () => <Text style={{color: 'black'}}>📝</Text>}}
+        name={SCREENS.CALL_HISTORY}
+        component={CallHistory}
+      />
+      {/* <Tab.Screen
+        options={{tabBarIcon: () => <Text style={{color: 'black'}}>⚙️</Text>}}
+        name={SCREENS.Settings}
+        component={Settings}
+      /> */}
+    </Tab.Navigator>
+  );
+}
+
+const AppNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name={SCREENS.TABS} component={MyTabs} />
       <Stack.Screen
         options={{
           headerShown: false,
@@ -34,14 +51,12 @@ const AppNavigator = () => {
 
       <Stack.Screen
         options={{headerShown: false}}
-        // DO NOT change the name
-        name="ZegoUIKitPrebuiltCallWaitingScreen"
+        name={SCREENS.CALL_WAITING_SCREEN}
         component={ZegoUIKitPrebuiltCallWaitingScreen}
       />
       <Stack.Screen
         options={{headerShown: false}}
-        // DO NOT change the name
-        name="ZegoUIKitPrebuiltCallInCallScreen"
+        name={SCREENS.IN_CALL_SCREEN}
         component={ZegoUIKitPrebuiltCallInCallScreen}
       />
     </Stack.Navigator>

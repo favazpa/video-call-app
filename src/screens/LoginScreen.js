@@ -1,5 +1,4 @@
 import {
-  Alert,
   StyleSheet,
   Text,
   TextInput,
@@ -13,7 +12,6 @@ import firestore from '@react-native-firebase/firestore';
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [phone, setPhone] = useState('');
   const [errorMsg, setErrorMsg] = useState(null);
 
   const handleLogin = async () => {
@@ -31,10 +29,8 @@ const LoginScreen = () => {
           console.log('User account created & signed in!');
 
           const atIndex = email.indexOf('@');
-
           const userName = email.substring(0, atIndex);
 
-          console.log('userName', userName); // This will log 'example'
           await firestore()
             .collection('Users')
             .add({
@@ -63,9 +59,6 @@ const LoginScreen = () => {
                   'Incorrect password, please contact admin for resetting',
                 );
               });
-            // setErrorMsg(
-            //   'Incorrect password, please contact admin for resetting',
-            // );
           }
 
           if (error.code === 'auth/invalid-email') {
@@ -77,8 +70,6 @@ const LoginScreen = () => {
             console.log('That password is weak,minimum 6 characters!');
             setErrorMsg('Your password is weak,minimum 6 characters!');
           }
-
-          // console.error(error);
         });
     } else if (!email) {
       setErrorMsg('Email is required!');
@@ -106,11 +97,7 @@ const LoginScreen = () => {
           onChangeText={setPassword}
         />
 
-        {errorMsg && (
-          <Text style={{color: 'red', alignSelf: 'flex-start'}}>
-            {errorMsg}
-          </Text>
-        )}
+        {errorMsg && <Text style={styles.errTxt}>{errorMsg}</Text>}
       </View>
 
       <TouchableOpacity style={styles.button} onPress={() => handleLogin()}>
@@ -162,4 +149,5 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '400',
   },
+  errTxt: {color: 'red', alignSelf: 'flex-start'},
 });
