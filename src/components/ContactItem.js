@@ -1,5 +1,5 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import {navigate} from '../navigation/NavigationService';
 import {SCREENS} from '../navigation/Routes';
@@ -39,16 +39,13 @@ const ContactItem = ({email}) => {
         disabled={isSelfUser}
         style={styles.contactContainer}>
         <Image source={{uri: userImage}} style={styles.avatar} />
-        <Text style={{color: 'gray', fontSize: 14, fontWeight: '500'}}>
-          {email}
-        </Text>
+        <Text style={styles.emailTxt}>{email}</Text>
 
         <View style={{flex: 1}}>
           {!isSelfUser ? (
             <View style={{alignSelf: 'flex-end'}}>
               <ZegoSendCallInvitationButton
                 invitees={invitees.map(inviteeID => {
-                  console.log('invite idddd', inviteeID);
                   return {userID: inviteeID, userName: inviteeID};
                 })}
                 isVideoCall={true}
@@ -56,19 +53,7 @@ const ContactItem = ({email}) => {
               />
             </View>
           ) : (
-            <Text
-              style={{
-                fontSize: 12,
-                fontWeight: '600',
-                color: 'red',
-                alignSelf: 'flex-end',
-                borderWidth: 1,
-                padding: 4,
-                borderColor: 'red',
-                borderRadius: 4,
-              }}>
-              Self card
-            </Text>
+            <Text style={styles.selfTxt}>Self card</Text>
           )}
         </View>
       </TouchableOpacity>
@@ -76,7 +61,7 @@ const ContactItem = ({email}) => {
   );
 };
 
-export default ContactItem;
+export default memo(ContactItem);
 
 const styles = StyleSheet.create({
   contactContainer: {
@@ -98,4 +83,15 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#97C1FF',
   },
+  selfTxt: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: 'red',
+    alignSelf: 'flex-end',
+    borderWidth: 1,
+    padding: 4,
+    borderColor: 'red',
+    borderRadius: 4,
+  },
+  emailTxt: {color: 'gray', fontSize: 14, fontWeight: '500'},
 });

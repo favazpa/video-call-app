@@ -21,7 +21,6 @@ const MainNavigator = () => {
   }, []);
 
   function onAuthStateChanged(user) {
-    console.log('user', user);
     if (user) {
       setUser(user);
     } else {

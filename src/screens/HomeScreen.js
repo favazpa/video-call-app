@@ -125,7 +125,7 @@ const HomeScreen = () => {
         renderItem={renderItem}
         contentContainerStyle={{gap: 10}}
         ListFooterComponent={
-          users.length <= 1 ? (
+          users?.length <= 1 ? (
             <View style={styles.footerContainer}>
               <Text style={{color: 'gray'}}>
                 No Contacts available, Please register them
